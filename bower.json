@@ -8,8 +8,9 @@
     "jquery": "~2.1.1",
     "sails.io.js": "~0.10.3",
     "bootstrap": "~3.2.0",
-    "lodash": "~2.4.1",
+    "lodash": "~3.8.0",
     "fontawesome": "~4.2.0",
-    "angular-toastr": "~0.5.1"
+    "angular-toastr": "~0.5.1",
+    "angular-google-maps": "~2.1.2"
   }
 }
