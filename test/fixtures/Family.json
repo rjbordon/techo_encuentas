@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "bossFirstName": "Carlos",
+    "bossLastName": "Perez",
+    "street": "Navarra",
+    "streetNnumber": "1965",
+    "neighborhood": "Maipu",
+    "comments": "Porton Azul",
+    "phone": "3517123456",
+    "lat": "-31.436508",
+    "lng": "-64.157737",
+    "status": "0",
+    "pollCount": "1",
+    "priority": "0"
+  },
+  {
+    "id": "2",
+    "bossFirstName": "Daniela",
+    "bossLastName": "Martinez",
+    "street": "Av Gob Sabattini",
+    "streetNumber": "2139",
+    "neighborhood": "Maipu",
+    "comments": "",
+    "phone": "3517123456",
+    "lat": "-31.433030",
+    "lng": "-64.157479",
+    "status": "0",
+    "pollCount": "2",
+    "priority": "1"
+  },
+  {
+    "id": "3",
+    "bossFirstName": "Martin Eduardo",
+    "bossLastName": "Lozano",
+    "street": "Murcia",
+    "streetNumber": "2345",
+    "neighborhood": "Maipu",
+    "comments": "",
+    "phone": "3517432432",
+    "lat": "-31.433942",
+    "lng": "-64.155556",
+    "status": "0",
+    "pollCount": "2",
+    "priority": "2"
+  },
+  {
+    "id": "4",
+    "bossFirstName": "Luis",
+    "bossLastName": "Armando",
+    "street": "Cadiz",
+    "streetNumber": "2410",
+    "neighborhood": "Maipu",
+    "comments": "",
+    "phone": "3517422222",
+    "lat": "-31.435114",
+    "lng": "-64.156501",
+    "status": "0",
+    "pollCount": "5",
+    "priority": "1"
+  }
+]
