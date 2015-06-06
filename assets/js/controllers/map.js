@@ -27,7 +27,7 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
         {
             url: 'images/pinRed.png',
             size: new google.maps.Size(22, 40),
-            origin: new google.maps.Point(11, 0),
+            origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(11, 40)
         },
         {
