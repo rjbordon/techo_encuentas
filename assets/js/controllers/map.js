@@ -6,7 +6,7 @@
 
 
 
-app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
+app.controller("mapa", ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
 
     $scope.family = [];
     $scope.markers = [];
@@ -80,5 +80,46 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
         $scope.map.setCenter(latlngbounds.getCenter());
         $scope.map.fitBounds(latlngbounds);
     }
+
+  /*$scope.openCreateFamilyPopup = function() {
+    alert('holas');
+  };*/
+
+  $scope.openCreateFamilyPopup = function (size) {
+
+    var modalInstance = $modal.open({
+      //animation: $scope.animationsEnabled,
+      templateUrl: 'templates/formFamilia.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      console.info('Modal dismissed at: ' + new Date());
+    });
+  };
 }]);
 
+
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+  /*$scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };*/
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
