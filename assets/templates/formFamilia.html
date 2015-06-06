@@ -1,3 +1,6 @@
+<div class="modal-header">
+  <h3 class="modal-title">Agregar familia</h3>
+</div>
 <div class="form-container">
 	<form class="form-family" role="form">
 	  	<div class="form-group">
@@ -28,6 +31,10 @@
 	    	<label for="telefono">Teléfono:</label>
 	    	<input type="telefono" class="form-control" id="telefono">
 	  	</div>
-	  	<button type="submit" class="btn btn-default">Guardar</button>
+	  	<!--<button type="submit" class="btn btn-default">Guardar</button>-->
 	</form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()">OK</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>
