@@ -7,9 +7,7 @@
 
 module.exports = {
 
-  attributes: {
-      nombre: string
-      
+  attributes: {     
 
   }
 };
