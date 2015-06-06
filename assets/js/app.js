@@ -4,5 +4,5 @@
 
 
 //var app = angular.module('techo', ['service']);
-var app = angular.module('techo', []);
+var app = angular.module('techo', ['ui.bootstrap']);
 
