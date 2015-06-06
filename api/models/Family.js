@@ -17,9 +17,15 @@ module.exports = {
         "phone": "string",
         "lat": "float",
         "lng": "float",
-        "status": "integer",
+        "status": {
+            type: "integer",
+            defaultsTo: 0
+        },
         "pollCount": "integer",
-        "priority": "integer"
+        "priority": {
+            type: "integer",
+            defaultsTo: 0
+        }
     }
 };
 
