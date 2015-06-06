@@ -3,5 +3,5 @@
  */
 
 
-var app = angular.module('techo', ['uiGmapgoogle-maps']);
+var app = angular.module('techo', []);
 
