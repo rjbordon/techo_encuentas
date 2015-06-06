@@ -35,5 +35,8 @@
     "url": "git://github.com/martin/techos_encuestas.git"
   },
   "author": "martin",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "barrels": "^1.4.1"
+  }
 }
