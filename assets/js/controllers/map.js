@@ -16,35 +16,35 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
             url: 'images/pinYellow.png',
             size: new google.maps.Size(22, 40),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
+            anchor: new google.maps.Point(11, 40)
         },
         {
             url: 'images/pinGreen.png',
-            size: new google.maps.Size(40, 50),
+            size: new google.maps.Size(22, 40),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
+            anchor: new google.maps.Point(11, 40)
         },
         {
             url: 'images/pinRed.png',
-            size: new google.maps.Size(40, 50),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
+            size: new google.maps.Size(22, 40),
+            origin: new google.maps.Point(11, 0),
+            anchor: new google.maps.Point(11, 40)
         },
         {
             url: 'images/pinGrey.png',
-            size: new google.maps.Size(40, 50),
+            size: new google.maps.Size(22, 40),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
+            anchor: new google.maps.Point(11, 40)
         },
         {
             url: 'images/pinBlue.png',
-            size: new google.maps.Size(40, 50),
+            size: new google.maps.Size(22, 40),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
+            anchor: new google.maps.Point(11, 40)
         }
     ];
     var shape = {
-        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        coords: [1, 1, 1, 20, 30, 20, 30, 1],
         type: 'poly'
     };
 
