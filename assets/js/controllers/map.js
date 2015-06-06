@@ -118,6 +118,33 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
         $scope.map.fitBounds(latlngbounds);
     };
 
+  var upsertFamily = function(selectedItem) {
+    selectedItem.lat = selectedItem.marker.getPosition().lat();
+    selectedItem.lng = selectedItem.marker.getPosition().lng();
+    selectedItem.status = 0; // this must be done on backend
+
+    delete selectedItem.marker;
+
+    var method = 'POST',
+      url = '/api/family';
+    if (selectedItem.id !== undefined) {
+      method = 'PUT';
+      url = '/api/family/' + selectedItem.id;
+    }
+
+    $scope.selected = selectedItem;
+
+    $http({
+      method: method,
+      url: url,
+      data: selectedItem
+    }).success(function (data) {
+      console.log('success data: ' + data);
+    }).error(function (data) {
+      console.log('err' + data);
+    });
+  };
+
     $scope.openCreateFamilyPopup = function (size) {
 
         var modalInstance = $modal.open({
@@ -133,8 +160,9 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
         });
 
         modalInstance.result.then(function (selectedItem) {
+          upsertFamily(selectedItem);
 
-          selectedItem.lat = selectedItem.marker.getPosition().lat();
+/*          selectedItem.lat = selectedItem.marker.getPosition().lat();
           selectedItem.lng = selectedItem.marker.getPosition().lng();
           selectedItem.status = 0; // this must be done on backend
 
@@ -157,7 +185,7 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
             console.log('success data: ' + data);
           }).error(function (data) {
               console.log('err' + data);
-            });
+            });*/
 
         }, function () {
             console.info('Modal dismissed at: ' + new Date());
