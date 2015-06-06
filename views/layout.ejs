@@ -34,13 +34,19 @@
     <link rel="stylesheet" href="/styles/styles.css">
     <style>
         #map-canvas {
-            height: 600px;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            bottom: 10px;
+            right: 0;
         }
     </style>
 </head>
 
 <body ng-app="techo">
-<%- body %>
+<div id='wrapper'>
+    <%- body %>
+</div>
 
 
 <!--

@@ -11,18 +11,19 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
     $scope.family = [];
     $scope.markers = [];
     $scope.map = null;
+    $scope.selected = null;
 
+    // Ventana para edicion del marker
+    $scope.infowindow = new google.maps.InfoWindow({
+        content: '<button class="button">Editar Familia</button>'
+    });
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
     function initialize() {
+        // Inicializo el mapa
 
-        var myLatlng = new google.maps.LatLng(-25.363882, 131.044922);
-        var mapOptions = {
-            zoom: 4,
-            center: myLatlng
-        };
-        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {});
 
         // Imagen
         var image = {
@@ -45,12 +46,15 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
             method: 'GET',
             url: '/api/family'
         }).success(function (data) {
+
+            // Obtengo todas las familias en data
             $scope.family = data;
             console.log(data);
-            // Agrego el marker
 
+            // por cada familia creo un marker
 
             $scope.family.forEach(function (fam) {
+                // Creo el marker
                 fam.marker = new google.maps.Marker({
                     position: new google.maps.LatLng(fam.lat, fam.lng),
                     map: $scope.map,
@@ -61,6 +65,14 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
                     draggable: true,
                     animation: google.maps.Animation.DROP
                 });
+
+                // Agrego evento click al marker
+                google.maps.event.addListener(fam.marker, 'click', function () {
+                    $scope.infowindow.setContent('Familia: <b>' + fam.bossLastName + '</b><br><button class="button">Editar</button>');
+                    $scope.infowindow.open($scope.map, fam.marker);
+                    $scope.selected = fam;
+                });
+
             });
             $scope.center();
 
@@ -76,9 +88,13 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
             latlngbounds.extend(fam.marker.position);
         });
 
-
         $scope.map.setCenter(latlngbounds.getCenter());
         $scope.map.fitBounds(latlngbounds);
+    }
+
+    $scope.markerClick = function (mark) {
+
+
     }
 }]);
 
