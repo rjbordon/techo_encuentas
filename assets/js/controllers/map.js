@@ -134,8 +134,11 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
 
         modalInstance.result.then(function (selectedItem) {
 
-          delete selectedItem.marker;
+          selectedItem.lat = selectedItem.marker.getPosition().lat();
+          selectedItem.lng = selectedItem.marker.getPosition().lng();
           selectedItem.status = 0; // this must be done on backend
+
+          delete selectedItem.marker;
 
           var method = 'POST',
             url = '/api/family';
