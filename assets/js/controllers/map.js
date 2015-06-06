@@ -126,14 +126,36 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
             controller: 'ModalInstanceCtrl',
             size: size,
             resolve: {
-                selected: function () {
+              familySelected: function () {
                     return $scope.selected;
                 }
             }
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
+
+          delete selectedItem.marker;
+          selectedItem.status = 0; // this must be done on backend
+
+          var method = 'POST',
+            url = '/api/family';
+          if (selectedItem.id !== undefined) {
+            method = 'PUT';
+            url = '/api/family/' + selectedItem.id;
+          }
+
+          $scope.selected = selectedItem;
+
+          $http({
+            method: method,
+            url: url,
+            data: selectedItem
+          }).success(function (data) {
+            console.log('success data: ' + data);
+          }).error(function (data) {
+              console.log('err' + data);
+            });
+
         }, function () {
             console.info('Modal dismissed at: ' + new Date());
         });
@@ -173,10 +195,11 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
 }]);
 
 
-app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selected) {
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, familySelected) {
+    $scope.familySelected = familySelected;
 
     $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
+        $modalInstance.close($scope.familySelected);
     };
 
     $scope.cancel = function () {
@@ -196,7 +219,7 @@ app.controller('navBarCtrl', function ($scope, $rootScope) {
                 "phone": "",
                 "lat": 0,
                 "lng": 0,
-                "status": "1",
+                "status": "2",
                 "pollCount": "1",
                 "priority": "0"
             }
