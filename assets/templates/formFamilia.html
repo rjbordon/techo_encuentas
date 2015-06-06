@@ -1,40 +1,66 @@
 <div class="modal-header">
-  <h3 class="modal-title">Agregar familia</h3>
+  <h2 class="modal-title">Agregar familia</h2>
 </div>
-<div class="form-container">
-	<form class="form-family" role="form">
-	  	<div class="form-group">
-	    	<label for="name">Nombre Jefe/a:</label>
-	    	<input type="name" class="form-control" id="name">
-	  	</div>
-	  	<div class="form-group">
-    	    	<label for="apellido">Apellido Jefe/a:</label>
-	    	<input type="apellido" class="form-control" id="apellido">
-	  	</div>
-	  	<div class="form-group">
-	    	<label for="barrio">Barrio:</label>
-	    	<input type="barrio" class="form-control" id="barrio">
-	  	</div>
-	  	<div class="form-group">
-	    	<label for="calle">Calle:</label>
-	    	<input type="calle" class="form-control" id="calle">
-	  	</div>
-	  	<div class="form-group">
-	    	<label for="numero">Número:</label>
-	    	<input type="numero" class="form-control" id="numero">
-	  	</div>
-	  	<div class="form-group">
-	    	<label for="referencias">Referencias:</label>
-	    	<input type="referencias" class="form-control" id="referencias">
-	  	</div>
-	  	<div class="form-group">
-	    	<label for="telefono">Teléfono:</label>
-	    	<input type="telefono" class="form-control" id="telefono">
-	  	</div>
-	  	<!--<button type="submit" class="btn btn-default">Guardar</button>-->
-	</form>
-</div>
+
+<form class="form-horizontal">
+  <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="name">Nombre Jefe/a</label>
+
+    <div class="col-sm-10">
+      <input id="name" class="form-control" type="text" placeholder="Nombre Jefe/a:" ng-model="familySelected.bossFirstName">
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="lastName">Apellido Jefe/a:</label>
+
+    <div class="col-sm-10">
+      <input id="lastName" class="form-control" type="text" placeholder="Apellido Jefe/a" ng-model="familySelected.bossLastName">
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="neighborhood">Barrio</label>
+
+    <div class="col-sm-10">
+      <input id="neighborhood" class="form-control" type="text" placeholder="Barrio" ng-model="familySelected.neighborhood">
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="neighborhood">Calle</label>
+
+    <div class="col-sm-10">
+      <input id="street" class="form-control" type="text" placeholder="Calle" ng-model="familySelected.street">
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="neighborhood">Número</label>
+
+    <div class="col-sm-10">
+      <input id="streetNumber" class="form-control" type="text" placeholder="Número" ng-model="familySelected.streetNumber">
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="neighborhood">Referencias</label>
+
+    <div class="col-sm-10">
+      <input id="comments" class="form-control" type="text" placeholder="Referencias" ng-model="familySelected.comments">
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="neighborhood">Teléfono</label>
+
+    <div class="col-sm-10">
+      <input id="phone" class="form-control" type="text" placeholder="Teléfono" ng-model="familySelected.phone">
+    </div>
+  </div>
+</form>
+
 <div class="modal-footer">
-  <button class="btn btn-primary" ng-click="ok()">OK</button>
-  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-primary" ng-click="ok()">Guardar</button>
+  <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
 </div>
