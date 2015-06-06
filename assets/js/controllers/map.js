@@ -58,11 +58,6 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
 
         $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {});
 
-        // Imagenes
-
-
-
-
         $http({
             method: 'GET',
             url: '/api/family'
@@ -98,6 +93,11 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
                     $compile(el)($scope);
                 });
 
+                google.maps.event.addListener(fam.marker, "dragend", function (event) {
+                    if (confirm("Desea guardar las nuevas coordenadas?")) {
+                        upsertFamily(fam);
+                    }
+                });
             });
             $scope.center();
 
@@ -126,7 +126,7 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
             controller: 'ModalInstanceCtrl',
             size: size,
             resolve: {
-              familySelected: function () {
+                familySelected: function () {
                     return $scope.selected;
                 }
             }
@@ -134,29 +134,29 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
 
         modalInstance.result.then(function (selectedItem) {
 
-          selectedItem.lat = selectedItem.marker.getPosition().lat();
-          selectedItem.lng = selectedItem.marker.getPosition().lng();
-          selectedItem.status = 0; // this must be done on backend
+            selectedItem.lat = selectedItem.marker.getPosition().lat();
+            selectedItem.lng = selectedItem.marker.getPosition().lng();
+            selectedItem.status = 0; // this must be done on backend
 
-          delete selectedItem.marker;
+            delete selectedItem.marker;
 
-          var method = 'POST',
-            url = '/api/family';
-          if (selectedItem.id !== undefined) {
-            method = 'PUT';
-            url = '/api/family/' + selectedItem.id;
-          }
+            var method = 'POST',
+                url = '/api/family';
+            if (selectedItem.id !== undefined) {
+                method = 'PUT';
+                url = '/api/family/' + selectedItem.id;
+            }
 
-          $scope.selected = selectedItem;
+            $scope.selected = selectedItem;
 
-          $http({
-            method: method,
-            url: url,
-            data: selectedItem
-          }).success(function (data) {
-            console.log('success data: ' + data);
-          }).error(function (data) {
-              console.log('err' + data);
+            $http({
+                method: method,
+                url: url,
+                data: selectedItem
+            }).success(function (data) {
+                console.log('success data: ' + data);
+            }).error(function (data) {
+                console.log('err' + data);
             });
 
         }, function () {
