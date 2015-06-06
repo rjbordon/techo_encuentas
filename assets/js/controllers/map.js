@@ -24,17 +24,59 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
         };
         $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-        // Imagen
-        var image = {
-            url: 'images/logo.png',
-            // This marker is 20 pixels wide by 32 pixels tall.
-            size: new google.maps.Size(356, 95),
-            //size: new google.maps.Size(20, 32),
-            // The origin for this image is 0,0.
-            origin: new google.maps.Point(0, 0),
-            // The anchor for this image is the base of the flagpole at 0,32.
-            anchor: new google.maps.Point(0, 32)
-        };
+        // Imagenes
+        var images = [
+            {
+                url: 'images/pinYellow.png',
+                // This marker is 20 pixels wide by 32 pixels tall.
+                size: new google.maps.Size(22, 40),
+                //size: new google.maps.Size(20, 32),
+                // The origin for this image is 0,0.
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at 0,32.
+                anchor: new google.maps.Point(0, 32)
+            },
+            {
+                url: 'images/pinGreen.png',
+                // This marker is 20 pixels wide by 32 pixels tall.
+                size: new google.maps.Size(40, 50),
+                //size: new google.maps.Size(20, 32),
+                // The origin for this image is 0,0.
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at 0,32.
+                anchor: new google.maps.Point(0, 32)
+            },
+            {
+                url: 'images/pinRed.png',
+                // This marker is 20 pixels wide by 32 pixels tall.
+                size: new google.maps.Size(40, 50),
+                //size: new google.maps.Size(20, 32),
+                // The origin for this image is 0,0.
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at 0,32.
+                anchor: new google.maps.Point(0, 32)
+            },
+            {
+                url: 'images/pinGrey.png',
+                // This marker is 20 pixels wide by 32 pixels tall.
+                size: new google.maps.Size(40, 50),
+                //size: new google.maps.Size(20, 32),
+                // The origin for this image is 0,0.
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at 0,32.
+                anchor: new google.maps.Point(0, 32)
+            },
+            {
+                url: 'images/pinBlue.png',
+                // This marker is 20 pixels wide by 32 pixels tall.
+                size: new google.maps.Size(40, 50),
+                //size: new google.maps.Size(20, 32),
+                // The origin for this image is 0,0.
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at 0,32.
+                anchor: new google.maps.Point(0, 32)
+            }
+        ];
 
         var shape = {
             coords: [1, 1, 1, 20, 18, 20, 18, 1],
@@ -51,10 +93,11 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
 
 
             $scope.family.forEach(function (fam) {
+
                 fam.marker = new google.maps.Marker({
                     position: new google.maps.LatLng(fam.lat, fam.lng),
                     map: $scope.map,
-                    //icon: image,
+                    icon: images[fam.status],
                     shape: shape,
                     title: fam.bossLastName,
                     zIndex: 1,
