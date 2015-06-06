@@ -11,7 +11,7 @@ module.exports = {
         "bossFirstName": "string",
         "bossLastName": "string",
         "street": "string",
-        "streetNnumber": "string",
+        "streetNumber": "string",
         "neighborhood": "string",
         "comments": "string",
         "phone": "string",
