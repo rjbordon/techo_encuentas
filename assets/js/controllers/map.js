@@ -123,9 +123,10 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
         selectedItem.lng = selectedItem.marker.getPosition().lng();
         selectedItem.status = 0; // this must be done on backend
 
-        //delete selectedItem.marker;
-
         selectedItem.marker.setIcon(images[0]);
+        delete selectedItem.marker;
+
+
         var method = 'POST',
             url = '/api/family';
         if (selectedItem.id !== undefined) {
@@ -140,7 +141,7 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
             url: url,
             data: selectedItem
         }).success(function (data) {
-            console.log('success data: ' + JSON.stringify(data));
+            console.log('success data: ' + data);
 
         }).error(function (data) {
             console.log('err' + data);
