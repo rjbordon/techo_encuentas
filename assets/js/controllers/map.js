@@ -6,7 +6,7 @@
 
 
 
-app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
+app.controller("mapa", ['$scope', '$http', '$modal', '$compile', function ($scope, $http, $modal, $compile) {
 
     $scope.family = [];
     $scope.markers = [];
@@ -14,9 +14,7 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
     $scope.selected = null;
 
     // Ventana para edicion del marker
-    $scope.infowindow = new google.maps.InfoWindow({
-        content: '<button class="button">Editar Familia</button>'
-    });
+    $scope.infowindow = new google.maps.InfoWindow({});
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -50,6 +48,7 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
             // Obtengo todas las familias en data
             $scope.family = data;
             console.log(data);
+            // Agrego el marker
 
             // por cada familia creo un marker
 
@@ -68,9 +67,13 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
 
                 // Agrego evento click al marker
                 google.maps.event.addListener(fam.marker, 'click', function () {
-                    $scope.infowindow.setContent('Familia: <b>' + fam.bossLastName + '</b><br><button class="button">Editar</button>');
+                    $scope.infowindow.setContent('<div id="btnEdit">Familia: <b>' +
+                        fam.bossLastName +
+                        '</b><br><button ng-click="openCreateFamilyPopup()" class="button">Editar</button></div>');
                     $scope.infowindow.open($scope.map, fam.marker);
                     $scope.selected = fam;
+                    var el = document.getElementById('btnEdit');
+                    $compile(el)($scope);
                 });
 
             });
@@ -88,13 +91,50 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
             latlngbounds.extend(fam.marker.position);
         });
 
+
         $scope.map.setCenter(latlngbounds.getCenter());
         $scope.map.fitBounds(latlngbounds);
     }
 
-    $scope.markerClick = function (mark) {
+    /*$scope.openCreateFamilyPopup = function() {
+     alert('holas');
+     };*/
 
+    $scope.openCreateFamilyPopup = function (size) {
 
-    }
+        var modalInstance = $modal.open({
+            //animation: $scope.animationsEnabled,
+            templateUrl: 'templates/formFamilia.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            console.info('Modal dismissed at: ' + new Date());
+        });
+    };
 }]);
 
+
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+    /*$scope.items = items;
+     $scope.selected = {
+     item: $scope.items[0]
+     };*/
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
