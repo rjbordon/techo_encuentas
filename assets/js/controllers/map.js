@@ -61,7 +61,6 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
                     draggable: true,
                     animation: google.maps.Animation.DROP
                 });
-                $scope.markers.push(fam.marker);
             });
             $scope.center();
 
@@ -73,8 +72,8 @@ app.controller("mapa", ['$scope', '$http', function ($scope, $http) {
     $scope.center = function () {
         var latlngbounds = new google.maps.LatLngBounds();
 
-        $scope.markers.forEach(function (mar) {
-            latlngbounds.extend(mar.position);
+        $scope.family.forEach(function (fam) {
+            latlngbounds.extend(fam.marker.position);
         });
 
 
