@@ -65,7 +65,7 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
 
             // Obtengo todas las familias en data
             $scope.family = data;
-            console.log(data);
+
             // Agrego el marker
 
             // por cada familia creo un marker
@@ -118,32 +118,34 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
         $scope.map.fitBounds(latlngbounds);
     };
 
-  var upsertFamily = function(selectedItem) {
-    selectedItem.lat = selectedItem.marker.getPosition().lat();
-    selectedItem.lng = selectedItem.marker.getPosition().lng();
-    selectedItem.status = 0; // this must be done on backend
+    var upsertFamily = function (selectedItem) {
+        selectedItem.lat = selectedItem.marker.getPosition().lat();
+        selectedItem.lng = selectedItem.marker.getPosition().lng();
+        selectedItem.status = 0; // this must be done on backend
 
-    delete selectedItem.marker;
+        //delete selectedItem.marker;
 
-    var method = 'POST',
-      url = '/api/family';
-    if (selectedItem.id !== undefined) {
-      method = 'PUT';
-      url = '/api/family/' + selectedItem.id;
-    }
+        selectedItem.marker.setIcon(images[0]);
+        var method = 'POST',
+            url = '/api/family';
+        if (selectedItem.id !== undefined) {
+            method = 'PUT';
+            url = '/api/family/' + selectedItem.id;
+        }
 
-    $scope.selected = selectedItem;
+        $scope.selected = selectedItem;
 
-    $http({
-      method: method,
-      url: url,
-      data: selectedItem
-    }).success(function (data) {
-      console.log('success data: ' + data);
-    }).error(function (data) {
-      console.log('err' + data);
-    });
-  };
+        $http({
+            method: method,
+            url: url,
+            data: selectedItem
+        }).success(function (data) {
+            console.log('success data: ' + JSON.stringify(data));
+
+        }).error(function (data) {
+            console.log('err' + data);
+        });
+    };
 
     $scope.openCreateFamilyPopup = function (size) {
 
@@ -160,7 +162,7 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', f
         });
 
         modalInstance.result.then(function (selectedItem) {
-          upsertFamily(selectedItem);
+            upsertFamily(selectedItem);
 
         }, function () {
             console.info('Modal dismissed at: ' + new Date());
