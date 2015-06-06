@@ -6,12 +6,47 @@
 
 
 
-app.controller("mapa", ['$scope', '$http', '$modal', '$compile', function ($scope, $http, $modal, $compile) {
+app.controller("mapa", ['$scope', '$http', '$modal', '$compile', '$rootScope', function ($scope, $http, $modal, $compile, $rootScope) {
 
     $scope.family = [];
-    $scope.markers = [];
     $scope.map = null;
     $scope.selected = null;
+    var images = [
+        {
+            url: 'images/pinYellow.png',
+            size: new google.maps.Size(22, 40),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        {
+            url: 'images/pinGreen.png',
+            size: new google.maps.Size(40, 50),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        {
+            url: 'images/pinRed.png',
+            size: new google.maps.Size(40, 50),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        {
+            url: 'images/pinGrey.png',
+            size: new google.maps.Size(40, 50),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        {
+            url: 'images/pinBlue.png',
+            size: new google.maps.Size(40, 50),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        }
+    ];
+    var shape = {
+        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        type: 'poly'
+    };
 
     // Ventana para edicion del marker
     $scope.infowindow = new google.maps.InfoWindow({});
@@ -24,63 +59,9 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', function ($scop
         $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {});
 
         // Imagenes
-        var images = [
-            {
-                url: 'images/pinYellow.png',
-            // This marker is 20 pixels wide by 32 pixels tall.
-                size: new google.maps.Size(22, 40),
-            //size: new google.maps.Size(20, 32),
-            // The origin for this image is 0,0.
-            origin: new google.maps.Point(0, 0),
-            // The anchor for this image is the base of the flagpole at 0,32.
-            anchor: new google.maps.Point(0, 32)
-            },
-            {
-                url: 'images/pinGreen.png',
-                // This marker is 20 pixels wide by 32 pixels tall.
-                size: new google.maps.Size(40, 50),
-                //size: new google.maps.Size(20, 32),
-                // The origin for this image is 0,0.
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at 0,32.
-                anchor: new google.maps.Point(0, 32)
-            },
-            {
-                url: 'images/pinRed.png',
-                // This marker is 20 pixels wide by 32 pixels tall.
-                size: new google.maps.Size(40, 50),
-                //size: new google.maps.Size(20, 32),
-                // The origin for this image is 0,0.
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at 0,32.
-                anchor: new google.maps.Point(0, 32)
-            },
-            {
-                url: 'images/pinGrey.png',
-                // This marker is 20 pixels wide by 32 pixels tall.
-                size: new google.maps.Size(40, 50),
-                //size: new google.maps.Size(20, 32),
-                // The origin for this image is 0,0.
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at 0,32.
-                anchor: new google.maps.Point(0, 32)
-            },
-            {
-                url: 'images/pinBlue.png',
-                // This marker is 20 pixels wide by 32 pixels tall.
-                size: new google.maps.Size(40, 50),
-                //size: new google.maps.Size(20, 32),
-                // The origin for this image is 0,0.
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at 0,32.
-                anchor: new google.maps.Point(0, 32)
-            }
-        ];
 
-        var shape = {
-            coords: [1, 1, 1, 20, 18, 20, 18, 1],
-            type: 'poly'
-        };
+
+
 
         $http({
             method: 'GET',
@@ -102,7 +83,6 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', function ($scop
                     icon: images[fam.status],
                     shape: shape,
                     title: fam.bossLastName,
-                    zIndex: 1,
                     draggable: true,
                     animation: google.maps.Animation.DROP
                 });
@@ -136,47 +116,92 @@ app.controller("mapa", ['$scope', '$http', '$modal', '$compile', function ($scop
 
         $scope.map.setCenter(latlngbounds.getCenter());
         $scope.map.fitBounds(latlngbounds);
-    }
+    };
 
-  /*$scope.openCreateFamilyPopup = function() {
-    alert('holas');
-  };*/
+    $scope.openCreateFamilyPopup = function (size) {
 
-  $scope.openCreateFamilyPopup = function (size) {
+        var modalInstance = $modal.open({
+            //animation: $scope.animationsEnabled,
+            templateUrl: 'templates/formFamilia.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+                selected: function () {
+                    return $scope.selected;
+                }
+            }
+        });
 
-    var modalInstance = $modal.open({
-      //animation: $scope.animationsEnabled,
-      templateUrl: 'templates/formFamilia.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            console.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.$on('newMarker', function (event, args) {
+        var coord = $scope.map.getCenter();
+        var fami = args;
+
+        if (fami.lat === 0) fami.lat = coord.lat();
+        if (fami.lng === 0) fami.lng = coord.lng();
+
+        // Creo el marker
+        fami.marker = new google.maps.Marker({
+            position: new google.maps.LatLng(fami.lat, fami.lng),
+            map: $scope.map,
+            icon: images[fami.status],   //TODO cambiar icono
+            shape: shape,
+            title: fami.bossLastName,
+            draggable: true,
+            animation: google.maps.Animation.DROP
+        });
+        
+        // Agrego evento click al marker
+        google.maps.event.addListener(fami.marker, 'click', function () {
+            $scope.infowindow.setContent('<div id="btnEdit">Familia: <b>' +
+                fami.bossLastName +
+                '</b><br><button ng-click="openCreateFamilyPopup()" class="button">Editar</button></div>');
+            $scope.infowindow.open($scope.map, fami.marker);
+            $scope.selected = fam;
+            var el = document.getElementById('btnEdit');
+            $compile(el)($scope);
+        });
+
+        $scope.select = fami;
     });
-
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      console.info('Modal dismissed at: ' + new Date());
-    });
-  };
 }]);
 
 
-app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selected) {
 
-  /*$scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };*/
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
 
-  $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
 });
+
+app.controller('navBarCtrl', function ($scope, $rootScope) {
+    $scope.newFamily = function () {
+        $rootScope.$broadcast('newMarker', {
+                "bossFirstName": "",
+                "bossLastName": "Nueva Familia",
+                "street": "",
+                "streetNumber": "",
+                "neighborhood": "",
+                "comments": "",
+                "phone": "",
+                "lat": 0,
+                "lng": 0,
+                "status": "1",
+                "pollCount": "1",
+                "priority": "0"
+            }
+        );
+    }
+});
+
+
