@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="/js/dependencies/fontawesome/css/font-awesome.css">
     <link rel="stylesheet" href="/js/dependencies/angular-toastr/dist/angular-toastr.min.css">
     <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="shortcut icon" href="favicon.png"/>
     <style>
         #map-canvas {
             position: absolute;
@@ -45,7 +46,44 @@
 
 <body ng-app="techo">
 <div id='wrapper'>
-    <%- body %>
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" ng-controller="navBarCtrl">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img width=90 alt="Brand" src="/images/logo.png">
+            </a>
+        </div>
+        <div class="container">
+            <% if (errors) { %>
+            <% errors.forEach(function (error) { %>
+            <%= __(error) %>
+            <% }) %>
+            <% } %>
+        </div>
+    </nav>
+
+
+    <form class="form-signin" role="form" action="/auth/local" method="post">
+        <h2 class="form-signin-heading">Por favor inicie sesi&oacute;n</h2>
+        <label for="identifier" class="sr-only">Email</label>
+        <input id="identifier" type="text" name="identifier" placeholder="Email" class="form-control">
+
+        <label for="password" class="sr-only">Password</label>
+        <input id="password" type="password" name="password" placeholder="Password" class="form-control">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+    </form>
+
+    <!--
+<% if (Object.keys(providers).length) { %>
+<h4>You can also use one of these...</h4>
+
+<% Object.keys(providers).forEach(function (key) { %>
+<a href="/auth/<%= providers[key].slug %>" role="button"><%= providers[key].name %></a>
+<% }) %>
+<% } %>
+-->
+
+
 </div>
 
 

@@ -9,18 +9,19 @@
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
-module.exports.bootstrap = function(cb) {
+module.exports.bootstrap = function (cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  cb();
+    // It's very important to trigger this callback method when you are finished
+    // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+    sails.services.passport.loadStrategies();
+    cb();
 
-  var Barrels = require('barrels');
-  var barrels = new Barrels();
-  var fixtures = barrels.data;
-  console.info(fixtures);
-  barrels.populate(function(err) {
-    //cb();
-    console.error(err);
-  });
+    var Barrels = require('barrels');
+    var barrels = new Barrels();
+    var fixtures = barrels.data;
+    barrels.populate(function (err) {
+        //cb();
+        if (err)
+            console.error(err);
+    });
 };
