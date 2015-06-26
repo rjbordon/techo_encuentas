@@ -2,7 +2,12 @@
  * Created by martin on 06/06/15.
  */
 
+(function () {
+  'use strict';
 
-//var app = angular.module('techo', ['service']);
-var app = angular.module('techo', ['ui.bootstrap']);
-
+  angular
+    .module('techo', [
+      'techoControllers',
+      'ui.bootstrap'
+    ]);
+})();
