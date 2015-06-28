@@ -8,6 +8,7 @@
   angular
     .module('techo', [
       'techoControllers',
+      'techoServices',
       'ui.bootstrap'
     ]);
 })();

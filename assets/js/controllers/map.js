@@ -11,47 +11,17 @@
 
   MapCtrl.$inject = [
     '$scope',
-    '$http',
     '$modal',
-    '$compile'
+    '$compile',
+    'familyService',
+    'imageService'
   ];
 
-  function MapCtrl($scope, $http, $modal, $compile) {
+  function MapCtrl($scope, $modal, $compile, familyService, imageService) {
     $scope.family = [];
     $scope.map = null;
     $scope.selected = null;
-    var images = [
-      {
-        url: 'images/pinYellow.png',
-        size: new google.maps.Size(22, 40),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(11, 40)
-      },
-      {
-        url: 'images/pinGreen.png',
-        size: new google.maps.Size(22, 40),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(11, 40)
-      },
-      {
-        url: 'images/pinRed.png',
-        size: new google.maps.Size(22, 40),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(11, 40)
-      },
-      {
-        url: 'images/pinGrey.png',
-        size: new google.maps.Size(22, 40),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(11, 40)
-      },
-      {
-        url: 'images/pinBlue.png',
-        size: new google.maps.Size(22, 40),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(11, 40)
-      }
-    ];
+    var images = imageService.getAll(google.maps.Size, google.maps.Point);
     var shape = {
       coords: [1, 1, 1, 20, 30, 20, 30, 1],
       type: 'poly'
@@ -67,11 +37,7 @@
 
       $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {});
 
-      $http({
-        method: 'GET',
-        url: '/api/family'
-      }).success(function (data) {
-
+      familyService.getAll(function success(data) {
         // Obtengo todas las familias en data
         $scope.family = data;
 
@@ -109,9 +75,8 @@
           });
         });
         $scope.center();
-
-      }).error(function () {
-        console.log('noando' + err);
+      }, function error(err) {
+        console.error('error when getting families: ' + err);
       });
     }
 
@@ -135,25 +100,12 @@
       selectedItem.marker.setIcon(images[0]);
       delete selectedItem.marker;
 
-
-      var method = 'POST',
-        url = '/api/family';
-      if (selectedItem.id !== undefined) {
-        method = 'PUT';
-        url = '/api/family/' + selectedItem.id;
-      }
-
       $scope.selected = selectedItem;
 
-      $http({
-        method: method,
-        url: url,
-        data: selectedItem
-      }).success(function (data) {
-        console.log('success data: ' + data);
-
-      }).error(function (data) {
-        console.log('err' + data);
+      familyService.upsert(selectedItem, function success() {
+        console.log('family information properly saved.');
+      }, function error(err) {
+        console.error('error when saving family: ' + err);
       });
     };
 
