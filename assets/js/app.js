@@ -9,6 +9,7 @@
     .module('techo', [
       'techoControllers',
       'techoServices',
+      'techo.directives',
       'ui.bootstrap'
     ]);
 })();
