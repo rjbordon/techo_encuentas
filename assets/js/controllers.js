@@ -6,5 +6,5 @@
   'use strict';
 
   angular
-    .module('techoControllers', []);
+    .module('techo.controllers', []);
 })();

@@ -7,8 +7,8 @@
 
   angular
     .module('techo', [
-      'techoControllers',
-      'techoServices',
+      'techo.controllers',
+      'techo.services',
       'techo.directives',
       'ui.bootstrap'
     ]);

@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-    .module('techoServices')
+    .module('techo.services')
     .factory('imageService', imageService);
 
   function imageService() {
