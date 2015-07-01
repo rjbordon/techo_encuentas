@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Techo Encuestas</title>
+  <title>Techo Encuestas</title>
 
-    <!-- Viewport mobile tag for sensible mobile support -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-    <!--
-        Stylesheets and Preprocessors
-        ==============================
+  <!--
+      Stylesheets and Preprocessors
+      ==============================
 
-        You can always bring in CSS files manually with `<link>` tags, or asynchronously
-        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
-        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+      You can always bring in CSS files manually with `<link>` tags, or asynchronously
+      using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+      of Sails' conventional asset pipeline (boilerplate Gruntfile).
 
-        By default, stylesheets from your `assets/styles` folder are included
-        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
-        are supported. In production, your styles will be minified and concatenated into
-        a single file.
+      By default, stylesheets from your `assets/styles` folder are included
+      here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+      are supported. In production, your styles will be minified and concatenated into
+      a single file.
 
-        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
-        For example, here are a few things you could do:
+      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
 
-            + Change the order of your CSS files
-            + Import stylesheets from other directories
-            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
-    -->
-    <link rel="stylesheet" href="/js/dependencies/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/js/dependencies/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/js/dependencies/fontawesome/css/font-awesome.css">
-    <link rel="stylesheet" href="/js/dependencies/angular-toastr/dist/angular-toastr.min.css">
-    <link rel="stylesheet" href="/styles/styles.css">
-    <style>
-        #map-canvas {
-            position: absolute;
-            top: 50px;
-            left: 0;
-            bottom: 10px;
-            right: 0;
-        }
-    </style>
+          + Change the order of your CSS files
+          + Import stylesheets from other directories
+          + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+  -->
+  <link rel="stylesheet" href="/js/dependencies/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/js/dependencies/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/js/dependencies/fontawesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/js/dependencies/angular-toastr/dist/angular-toastr.min.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <style>
+    #map-canvas {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      bottom: 10px;
+      right: 0;
+    }
+  </style>
 </head>
 
 <body ng-app="techo">
 <div id='wrapper'>
-    <%- body %>
+  <%- body %>
 </div>
 
 
@@ -114,7 +114,15 @@
 <!-- APP -->
 
 <script src='/js/app.js'></script>
+<script src='/js/controllers.js'></script>
 <script src='/js/controllers/map.js'></script>
+<script src='/js/controllers/modal-instance.js'></script>
 
+<script src='/js/services.js'></script>
+<script src='/js/services/family.js'></script>
+<script src='/js/services/image.js'></script>
+
+<script src='/js/directives.js'></script>
+<script src='/js/directives/nav-bar.js'></script>
 </body>
 </html>
