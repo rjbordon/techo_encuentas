@@ -11,6 +11,7 @@
     "fontawesome": "~4.2.0",
     "angular-toastr": "~0.5.1",
     "angular-route": "~1.4.0",
-    "angular-ui-bootstrap-bower": "~0.13.0"
+    "angular-ui-bootstrap-bower": "~0.13.0",
+    "angular-mocks": "~1.4.1"
   }
 }
