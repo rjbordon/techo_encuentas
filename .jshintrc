@@ -1,0 +1,24 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "newcap": true,
+  "noarg": true,
+  "sub": true,
+  "undef": true,
+  "eqnull": true,
+  "browser": true,
+  "unused": true,
+  "indent": false,
+  "node": true,
+  "globals": {
+    "angular": true,
+    "google": true,
+    "describe": true,
+    "beforeEach": true,
+    "inject": true,
+    "it": true,
+    "expect": true,
+    "sinon": true
+  }
+}

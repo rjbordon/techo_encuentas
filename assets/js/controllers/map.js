@@ -69,7 +69,7 @@
           });
 
           google.maps.event.addListener(fam.marker, "dragend", function () {
-            if (confirm("Desea guardar las nuevas coordenadas?")) {
+            if (window.confirm("Desea guardar las nuevas coordenadas?")) {
               upsertFamily(fam);
             }
           });
@@ -135,8 +135,12 @@
       var coord = $scope.map.getCenter();
       var fami = args;
 
-      if (fami.lat === 0) fami.lat = coord.lat();
-      if (fami.lng === 0) fami.lng = coord.lng();
+      if (fami.lat === 0) {
+        fami.lat = coord.lat();
+      }
+      if (fami.lng === 0) {
+        fami.lng = coord.lng();
+      }
 
       // Creo el marker
       fami.marker = new google.maps.Marker({
